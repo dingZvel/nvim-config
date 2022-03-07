@@ -110,6 +110,9 @@ set history=1024
 
 " Indentation and mouse
 set backspace=indent,eol,start " let backspace delete over lines
+" 自适应不同语言的智能缩进
+filetype indent on
+" 自动缩进
 set autoindent
 set smartindent " allow vim to best-effort guess the indentation
 set autoread
