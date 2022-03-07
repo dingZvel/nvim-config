@@ -106,6 +106,7 @@ set omnifunc=syntaxcomplete#Complete
 set shell=cmd
 set hidden
 set sidescroll=1
+set history=1024
 
 " Indentation and mouse
 set backspace=indent,eol,start " let backspace delete over lines
