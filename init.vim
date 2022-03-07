@@ -129,6 +129,18 @@ set showmatch "highlights matching brackets
 set incsearch "search as characters are entered
 set nohlsearch "remove highlight
 
+"if has("win32")
+"    set fileencoding=chinese
+"else
+"    set fileencoding=utf-8
+"endif
+"解决菜单乱码
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+"解决consle输出乱码
+language messages zh_CN.utf-8
+
+nnoremap <leader>gp :!git push
 " run code
 "augroup compileandrun
 "    autocmd!
