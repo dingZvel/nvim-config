@@ -90,6 +90,7 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 " Core settings
 filetype plugin on
 set tabstop=4
+set fileencodings=utf-8,gbk2312,gbk,gb18030,cp936
 set encoding=utf-8
 syntax on
 set nu 
