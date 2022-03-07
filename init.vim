@@ -9,6 +9,7 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 call plug#begin(stdpath('config').'/plugged')
 
 "Looks
+Plug 'tomasr/molokai'
 Plug 'navarasu/onedark.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 
@@ -102,11 +103,13 @@ set shortmess+=c
 set omnifunc=syntaxcomplete#Complete
 set shell=cmd
 set hidden
+set sidescroll=1
 
 " Indentation and mouse
 set backspace=indent,eol,start " let backspace delete over lines
 set autoindent
 set smartindent " allow vim to best-effort guess the indentation
+set autoread
 set pastetoggle=<F1> " enable paste mode
 set mouse+=a
 
@@ -121,14 +124,30 @@ set incsearch "search as characters are entered
 set nohlsearch "remove highlight
 
 " run code
-augroup compileandrun
-    autocmd!
-    autocmd filetype python nnoremap <f5> :w <bar> :!python3 % <cr>
-	autocmd filetype cpp nnoremap <silent> <f3> :!g++ -O0 -fsyntax-only %<cr>
-	autocmd filetype cpp nnoremap <silent> <f4> :!start cmd /c a.exe ^& pause<cr><cr>
-	autocmd filetype cpp nnoremap <silent> <f5> :!g++ -O2 %<cr> :!start cmd /c a.exe ^& pause<cr><cr>
-    autocmd filetype java nnoremap <f5> :w <bar> !javac % && java %:r <cr>
-augroup END
+"augroup compileandrun
+"    autocmd!
+"    autocmd filetype python nnoremap <f5> :w <bar> :!python3 % <cr>
+"	autocmd filetype cpp nnoremap <silent> <f3> :!g++ -O0 -fsyntax-only %<cr>
+"	autocmd filetype cpp nnoremap <silent> <f4> :!start cmd /c a.exe ^& pause<cr><cr>
+"	autocmd filetype cpp nnoremap <silent> <f5> :!g++ -O2 %<cr> :!start cmd /c a.exe ^& pause<cr><cr>
+"    autocmd filetype java nnoremap <f5> :w <bar> !javac % && java %:r <cr>
+" augroup END
+map <F5> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+    exec "w"
+    if &filetype == 'c'
+        exec "!gcc % -o %<"
+        exec "! ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o %<"
+        exec "! ./%<"
+    elseif &filetype == 'java'
+        exec "!javac %"
+        exec "!java %<"
+    elseif &filetype == 'sh'
+        :!./%
+    endif
+endfunc
 
 "custom
 autocmd BufEnter * silent! lcd %:p:h
@@ -148,14 +167,15 @@ if (has("termguicolors"))
 endif
 
 " colorscheme
-set background=dark
-colorscheme onedarker
-
+" set background=dark
+colorscheme molokai
+let g:molokai_original = 1
+let g:rehash256 = 1
 
 " GUI SETTINGS
 
 " standard
-set guifont=JetBrainsMono\ NF:h14
+set guifont="Cascadia Code"\ NF:h14
 set guioptions-=m
 set guioptions-=T
 set guioptions-=r
