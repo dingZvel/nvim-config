@@ -269,13 +269,13 @@ let g:dashboard_custom_header = [
 	 \] " Change to your name
 
 let g:dashboard_custom_shortcut={
-\ 'last_session'       : '      ',
-\ 'find_history'       : '      ',
-\ 'find_file'          : 'CTRL P',
-\ 'new_file'           : '      ',
-\ 'change_colorscheme' : '      ',
-\ 'find_word'          : '      ',
-\ 'book_marks'         : '      ',
+\ 'last_session'       : '<SPACE> SL',
+\ 'find_history'       : '          ',
+\ 'find_file'          : '  CTRL P  ',
+\ 'new_file'           : '          ',
+\ 'change_colorscheme' : '          ',
+\ 'find_word'          : '          ',
+\ 'book_marks'         : '          ',
 \ }
 
 nnoremap <silent><leader>sl :SessionLoad<cr>
