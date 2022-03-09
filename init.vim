@@ -278,6 +278,8 @@ let g:dashboard_custom_shortcut={
 \ 'book_marks'         : '      ',
 \ }
 
+nnoremap <silent><leader>sl :SessionLoad<cr>
+nnoremap <silent><leader>ss :SessionSave<cr>
 " TELESCOPE
 nnoremap <silent><C-P> :Telescope find_files<cr>
 
