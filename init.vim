@@ -91,13 +91,13 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 cd E:\Coding
 filetype plugin on
 set tabstop=4
-set fileencodings=utf-8,gbk2312,gbk,gb18030,cp936
-set encoding=utf-8
+"set fileencodings=utf-8,gbk2312,gbk,gb18030,cp936
+"set encoding=utf-8
 syntax on
 set nu 
 set clipboard=unnamedplus " public copy/paste register
 set ruler
-set nowrap
+"set nowrap
 set showcmd
 set noswapfile " doesn't create swap files
 set noshowmode
@@ -105,8 +105,14 @@ set shortmess+=c
 set omnifunc=syntaxcomplete#Complete
 set shell=cmd
 set hidden
-set sidescroll=1
+"set sidescroll=1
 set history=1024
+"set number
+" 显示相对行号，便于 nj/nk 跳转
+"set relativenumber number
+" 插入模式显示绝对行号，普通模式显示相对行号
+autocmd InsertEnter * :set norelativenumber number
+autocmd InsertLeave * :set relativenumber
 
 " Indentation and mouse
 set backspace=indent,eol,start " let backspace delete over lines
@@ -114,7 +120,33 @@ set backspace=indent,eol,start " let backspace delete over lines
 filetype indent on
 " 自动缩进
 set autoindent
-set smartindent " allow vim to best-effort guess the indentation
+" 使用 C/C++ 语言的自动缩进方式
+set cindent
+" C/C++ 语言的具体缩进方式
+set cinoptions=g0,:0,N-s,(0
+" 智能选择对齐方式
+set smartindent
+" 当一行字符超过窗口宽度时，禁止换行显示
+set nowrap
+" 当打开换行显示时，在空格处换行
+set linebreak
+" 带有如下符号的单词不要被换行分割
+set iskeyword+=_,$,@,%,#,-
+" 打开断行模块对亚洲语言支持
+" m 表示允许在两个汉字之间断行， 即使汉字之间没有出现空格
+" B 表示将两行合并为一行的时候， 汉字与汉字之间不要补空格
+set formatoptions+=mB
+" 横向滚动的最少列数
+set sidescroll=10
+" 光标离窗口上下边界 5 行时窗口自动滚动
+set scrolloff=5
+" 最多可以撤销的改变个数
+set undolevels=1000
+" 保存缓冲区重载撤销的最大行数(number of lines to save for undo)
+set undoreload=10000
+
+"set autoindent
+"set smartindent " allow vim to best-effort guess the indentation
 set autoread
 set pastetoggle=<F1> " enable paste mode
 set mouse+=a
@@ -139,8 +171,8 @@ source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 "解决consle输出乱码
 language messages zh_CN.utf-8
-nnoremap <leader>gp :!git push
-nnoremap <leader>gp :!git push
+
+
 " run code
 "augroup compileandrun
 "    autocmd!
@@ -150,8 +182,8 @@ nnoremap <leader>gp :!git push
 "	autocmd filetype cpp nnoremap <silent> <f5> :!g++ -O2 %<cr> :!start cmd /c a.exe ^& pause<cr><cr>
 "    autocmd filetype java nnoremap <f5> :w <bar> !javac % && java %:r <cr>
 " augroup END
-map <F5> :call CompileRunGcc()<CR>
-func! CompileRunGcc()
+map <F5> :call CompileRun()<CR>
+func! CompileRun()
     exec "w"
     if &filetype == 'c'
         exec "!gcc % -o %<"
@@ -185,7 +217,7 @@ if (has("termguicolors"))
 endif
 
 " colorscheme
-" set background=dark
+set background=dark
 colorscheme molokai
 let g:molokai_original = 1
 let g:rehash256 = 1
@@ -193,7 +225,8 @@ let g:rehash256 = 1
 " GUI SETTINGS
 
 " standard
-set guifont="Cascadia Code"\ NF:h14
+"set guifont=Cascadia\ Code:h14
+set guifont=JetBrainsMono\ NF:h14
 set guioptions-=m
 set guioptions-=T
 set guioptions-=r
@@ -231,7 +264,7 @@ let g:floaterm_keymap_toggle = '<F1>'
 let g:dashboard_default_executive ='telescope'
 let g:dashboard_custom_header = [
 						\'','','','',
-						\'Welcome back Mate!', 
+						\'Welcome back, dingZvel!', 
 						\'','','','',
 	 \] " Change to your name
 
@@ -261,7 +294,7 @@ nnoremap <silent><leader>gp :Gitsigns prev_hunk<cr>zzzv
 nnoremap <silent><leader>gg :Gitsigns preview_hunk<cr>
 nnoremap <leader>gs :Gitsigns stage_hunk<cr>
 nnoremap <leader>gc :!git commit -m "
-
+nnoremap <leader>gp :!git push<cr>
 
 " --- NAVIGATION ---
 
