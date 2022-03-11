@@ -367,11 +367,12 @@ map('n', '<leader>d', ':BufferClose<CR>', opts)
 --                 :BufferCloseBuffersLeft<CR>
 --                 :BufferCloseBuffersRight<CR>
 -- Magic buffer-picking mode
---map('n', '<C-p>', ':BufferPick<CR>', opts)
+map('n', '<leader>p', ':BufferPick<CR>', opts)
 -- Sort automatically by...
---map('n', '<Space>bb', ':BufferOrderByBufferNumber<CR>', opts)
---map('n', '<Space>bd', ':BufferOrderByDirectory<CR>', opts)
---map('n', '<Space>bl', ':BufferOrderByLanguage<CR>', opts)
+map('n', '<Space>bb', ':BufferOrderByBufferNumber<CR>', opts)
+map('n', '<Space>bd', ':BufferOrderByDirectory<CR>', opts)
+map('n', '<Space>bl', ':BufferOrderByLanguage<CR>', opts)
+map('n', '<Space>bw', ':BufferOrderByWindowNumber<CR>',opts)
 
 -- Other:
 -- :BarbarEnable - enables barbar (enabled by default)
