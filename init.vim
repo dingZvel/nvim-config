@@ -59,9 +59,10 @@ nnoremap <leader>c :so $VIMRUNTIME/syntax/hitest.vim<return>
 nnoremap <buffer><localleader>w :set wrap!<cr>
 
 " buffer settings
-nnoremap <s-tab> :bp<return>
-nnoremap <tab> :bn<return>
-nnoremap <silent><leader>d :bp\|bd #\|BarbarEnable<return>
+"nnoremap <s-tab> :bp<return>
+"nnoremap <tab> :bn<return>
+"nnoremap <silent><leader>d :bp\|bd #\|BarbarEnable<return>
+"nnoremap <silent><leader>d :BufferClose<CR>
 
 " save remaps
 nnoremap <leader>W :w !diff % -<cr>
@@ -187,10 +188,12 @@ func! CompileRun()
     exec "w"
     if &filetype == 'c'
         exec "!gcc % -o %<"
-        exec "! ./%<"
+        "exec "! ./%<"
+        exec "!start cmd /c %<.exe ^& pause"    
     elseif &filetype == 'cpp'
         exec "!g++ % -o %<"
-        exec "! ./%<"
+        "exec "! ./%<"
+        exec "!start cmd /c %<.exe ^& pause"    
     elseif &filetype == 'java'
         exec "!javac %"
         exec "!java %<"
@@ -332,6 +335,48 @@ nnoremap <silent><leader>f :call ToggleNvimTree()<cr>
 let bufferline.auto_hide = v:true
 let bufferline.animation = v:true
 let bufferline.no_name_title = "untitled"
+
+" barbar-Mapping
+lua <<EOF
+local map = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
+
+-- Move to previous/next
+map('n', '<s-tab>', ':BufferPrevious<CR>', opts)
+map('n', '<tab>', ':BufferNext<CR>', opts)
+-- Re-order to previous/next
+--map('n', '<A-<>', ':BufferMovePrevious<CR>', opts)
+--map('n', '<A->>', ' :BufferMoveNext<CR>', opts)
+-- Goto buffer in position...
+map('n', '<A-1>', ':BufferGoto 1<CR>', opts)
+map('n', '<A-2>', ':BufferGoto 2<CR>', opts)
+map('n', '<A-3>', ':BufferGoto 3<CR>', opts)
+map('n', '<A-4>', ':BufferGoto 4<CR>', opts)
+map('n', '<A-5>', ':BufferGoto 5<CR>', opts)
+map('n', '<A-6>', ':BufferGoto 6<CR>', opts)
+map('n', '<A-7>', ':BufferGoto 7<CR>', opts)
+map('n', '<A-8>', ':BufferGoto 8<CR>', opts)
+map('n', '<A-9>', ':BufferGoto 9<CR>', opts)
+map('n', '<A-0>', ':BufferLast<CR>', opts)
+-- Close buffer
+map('n', '<leader>d', ':BufferClose<CR>', opts)
+-- Wipeout buffer
+--                 :BufferWipeout<CR>
+-- Close commands
+--                 :BufferCloseAllButCurrent<CR>
+--                 :BufferCloseBuffersLeft<CR>
+--                 :BufferCloseBuffersRight<CR>
+-- Magic buffer-picking mode
+--map('n', '<C-p>', ':BufferPick<CR>', opts)
+-- Sort automatically by...
+--map('n', '<Space>bb', ':BufferOrderByBufferNumber<CR>', opts)
+--map('n', '<Space>bd', ':BufferOrderByDirectory<CR>', opts)
+--map('n', '<Space>bl', ':BufferOrderByLanguage<CR>', opts)
+
+-- Other:
+-- :BarbarEnable - enables barbar (enabled by default)
+-- :BarbarDisable - very bad command, should never be used
+EOF
 
 " QUICK SCOPE
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
