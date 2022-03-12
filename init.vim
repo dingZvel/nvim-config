@@ -220,7 +220,7 @@ if (has("termguicolors"))
 endif
 
 " colorscheme
-set background=dark
+"set background=dark
 colorscheme molokai
 let g:molokai_original = 1
 let g:rehash256 = 1
@@ -320,18 +320,22 @@ endfunction
  
 " BARBAR 
 let bufferline = get(g:, 'bufferline', {})
+noremap <silent> <leader>f :lua require'custom.tree'.toggle()<CR>
 " (compatibility with NVIM-TREE)
-let s:treeEnabled=0
-function! ToggleNvimTree()
-	   if s:treeEnabled
-			 lua require('custom.tree').close()
-			 let s:treeEnabled = 0
-	   else
-			 lua require('custom.tree').open()
-			 let s:treeEnabled = 1
-	   endif
-endfunction
-nnoremap <silent><leader>f :call ToggleNvimTree()<cr>
+"let s:treeEnabled=0
+"function! ToggleNvimTree()
+"	   if s:treeEnabled
+"			 lua require('custom.tree').close()
+"			 let s:treeEnabled = 0
+"	   else
+"			 lua require('custom.tree').open()
+"			 let s:treeEnabled = 1
+"	   endif
+"endfunction
+"nnoremap <silent><leader>f :call ToggleNvimTree()<cr>
+"nnoremap <leader>f :NvimTreeToggle<CR>
+"lua require 'nvim-tree'.toggle()
+
 let bufferline.auto_hide = v:true
 let bufferline.animation = v:true
 let bufferline.no_name_title = "untitled"
@@ -357,7 +361,9 @@ map('n', '<A-6>', ':BufferGoto 6<CR>', opts)
 map('n', '<A-7>', ':BufferGoto 7<CR>', opts)
 map('n', '<A-8>', ':BufferGoto 8<CR>', opts)
 map('n', '<A-9>', ':BufferGoto 9<CR>', opts)
-map('n', '<A-0>', ':BufferLast<CR>', opts)
+map('n', '<A-0>', ':BufferLast  <CR>', opts)
+-- Pin/unpin buffer
+map('n', '<leader>p', ':BufferPin<CR>', opts)
 -- Close buffer
 map('n', '<leader>d', ':BufferClose<CR>', opts)
 -- Wipeout buffer
@@ -367,7 +373,7 @@ map('n', '<leader>d', ':BufferClose<CR>', opts)
 --                 :BufferCloseBuffersLeft<CR>
 --                 :BufferCloseBuffersRight<CR>
 -- Magic buffer-picking mode
-map('n', '<leader>p', ':BufferPick<CR>', opts)
+map('n', '<A-p>', ':BufferPick<CR>', opts)
 -- Sort automatically by...
 map('n', '<Space>bb', ':BufferOrderByBufferNumber<CR>', opts)
 map('n', '<Space>bd', ':BufferOrderByDirectory<CR>', opts)
