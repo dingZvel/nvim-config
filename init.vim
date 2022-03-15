@@ -230,6 +230,7 @@ let g:rehash256 = 1
 " standard
 "set guifont=Cascadia\ Code:h14
 set guifont=JetBrainsMono\ NF:h14
+"set guifont=FiraCode\ NF:h14
 set guioptions-=m
 set guioptions-=T
 set guioptions-=r
